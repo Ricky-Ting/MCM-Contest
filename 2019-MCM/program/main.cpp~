@@ -4,6 +4,7 @@
 using namespace std;
 string s[500];
 int county_count[10][500];
+int result[10][500];
 int State_count[10][5];
 int name_counter;
 string State_name[] = {"KY", "OH", "PA", "VA", "WV"  };
@@ -12,15 +13,16 @@ struct {
 	int adj[20];
 } relations[500] ;
 
-int KY_start=0;
-int OH_start=120;
-int PA_start=120+88;
-int VA_start=120+88+67;
-int WV_start=120+88+67+131;
+const int KY_start=0;
+const int OH_start=120;
+const int PA_start=120+88;
+const int VA_start=120+88+67;
+const int WV_start=120+88+67+131;
 
 ifstream names;
 ifstream count_year;
 ifstream county_relation;
+ofstream outfile;
 
 void get_name(void) {
 	name_counter=0;
@@ -75,35 +77,65 @@ void get_relation() {
 }
 
 void output() {
+	for(int i=0;i<name_counter;i++)
+		results[2010%2010][i]=county_count[2010%2010][i];
+
+
+	for(int k=2010;k<2017;k++) {
+		for(int i=0;i<name_counter;i++) {
+			cout<<s[i]<<": ";
+			for(int j=0;j<relations[i].rel_name;j++) {
+				cout<<s[relations[i].adj[j] ]<<", ";
+			}
+			cout<<endl;
 	
-	for(int i=0;i<name_counter;i++) {
-		cout<<s[i]<<": ";
-		for(int j=0;j<relations[i].rel_name;j++) {
-			cout<<s[relations[i].adj[j] ]<<", ";
 		}
-		cout<<endl;
-	
 	}
-
-
 }
+
+
+
+void CA() {
+	
+	for(int i=0;i<name_counter;i++)
+		results[2010%2010][i] = county_count[2010%2010][i];
+
+	for(int i=2010;i<2017;i++)  {
+		
+		for(int j=0;j<name_counter;j++) {
+			results[ (i+1)%2010][j] =  update(results[i%2010][j]);
+		
+		}
+
+
+
+		
+
+
+	}
+	
+}
+
 
 
 int main() {
 	names.open("COUNTY_NAMES.txt");
 	count_year.open("DRUG_COUNTS.txt");
 	county_relation.open("NEW_COUNTY_RELATION.txt");
+	outfile.open("CA_RESULTS.txt");
 
 
 	get_name();
 	get_count();
 	get_relation();
-	output();
+	CA();
+	//output();
 
 
 	names.close();
 	count_year.close();
 	county_relation.close();
+	outfile.close();
 }
 
 
