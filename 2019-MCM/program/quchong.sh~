@@ -1,0 +1,6 @@
+# !/bin/sh
+ 
+ 
+file='2016_DRUG_COUNTS.txt'
+ 
+sort -n $file | uniq
