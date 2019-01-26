@@ -34,11 +34,13 @@ void get_name(void) {
 }
 
 void get_count(void) {
-	int Inyear,Incounty_count,InState_count;
+	memset(county_count,0,sizeof(county_count));
+	int Inyear,Incounty_count;
 	string InState, Incounty;
 	int herestart;
-	while( count_year >> Inyear >> InState >> Incounty >> Incounty_count >> InState_count ) {
+	while( count_year >> Inyear >> InState >> Incounty >> Incounty_count  ) {
 		
+	//	cout<<Inyear<<InState<<Incounty<<Incounty_count<<endl;
 		switch(InState[0]) {
 			case 'K' : herestart=KY_start; break;
 			case 'O' : herestart=OH_start; break;
@@ -49,7 +51,7 @@ void get_count(void) {
 		}
 		for(int i=herestart; i<name_counter;i++ ) {
 			if(s[i]==Incounty) {
-				county_count[Inyear%2010][i]= Incounty_count;
+				county_count[Inyear%2010][i]+= Incounty_count;
 				break;
 			
 			}
@@ -58,6 +60,23 @@ void get_count(void) {
 		
 		}
 	}
+	memset(State_count,0,sizeof(State_count));
+	for(int i=2010;i<=2017;i++) {
+		for(int j=KY_start;j<OH_start;j++) 
+			State_count[i%2010][0]+=county_count[i%2010][j];
+		for(int j=OH_start;j<PA_start;j++) 
+			State_count[i%2010][1]+=county_count[i%2010][j];
+		for(int j=PA_start;j<VA_start;j++) 
+			State_count[i%2010][2]+=county_count[i%2010][j];
+		for(int j=VA_start;j<WV_start;j++) 
+			State_count[i%2010][3]+=county_count[i%2010][j];
+		for(int j=WV_start;j<name_counter;j++) 
+			State_count[i%2010][4]+=county_count[i%2010][j];
+
+		
+	
+	}
+
 
 }
 
@@ -77,26 +96,40 @@ void get_relation() {
 }
 
 void output() {
-	for(int i=0;i<name_counter;i++)
-		results[2010%2010][i]=county_count[2010%2010][i];
+	for(int i=2010;i<=2017;i++) {
+		cout<<i<<"\t"<<"KY\t"<<State_count[i%2010][0]<<endl;
+		cout<<i<<"\t"<<"OH\t"<<State_count[i%2010][1]<<endl;
+		cout<<i<<"\t"<<"PA\t"<<State_count[i%2010][2]<<endl;
+		cout<<i<<"\t"<<"VA\t"<<State_count[i%2010][3]<<endl;
+		cout<<i<<"\t"<<"WV\t"<<State_count[i%2010][4]<<endl;
 
-
-	for(int k=2010;k<2017;k++) {
-		for(int i=0;i<name_counter;i++) {
-			cout<<s[i]<<": ";
-			for(int j=0;j<relations[i].rel_name;j++) {
-				cout<<s[relations[i].adj[j] ]<<", ";
-			}
-			cout<<endl;
-	
-		}
 	}
+
+
+
+	for(int i=2010;i<=2017;i++) {
+		for(int j=0;j<name_counter;j++) {
+			cout<< i<< "\t" ;
+			if(j<OH_start) 
+				cout<<"KY"<<"\t";
+			else if(j<PA_start)
+				cout<<"OH"<<"\t";
+			else if(j<VA_start)
+				cout<<"PA"<<"\t";
+			else if(j<WV_start)
+				cout<<"VA"<<"\t";
+			else
+				cout<<"WV"<<"\t";
+			cout<< s[j]<<"\t"<<county_count[i%2010][j]<<endl;
+		} 
+	}
+
 }
 
 
 
 void CA() {
-	
+/*	
 	for(int i=0;i<name_counter;i++)
 		results[2010%2010][i] = county_count[2010%2010][i];
 
@@ -107,13 +140,9 @@ void CA() {
 		
 		}
 
-
-
-		
-
-
 	}
 	
+	*/
 }
 
 
@@ -128,8 +157,8 @@ int main() {
 	get_name();
 	get_count();
 	get_relation();
-	CA();
-	//output();
+//	CA();
+	output();
 
 
 	names.close();
