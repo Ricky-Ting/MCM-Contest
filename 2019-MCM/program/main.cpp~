@@ -1,28 +1,70 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+
+#define KY_start 0
+#define OH_start 120
+#define PA_start 120+88
+#define VA_start 120+88+67
+#define WV_start 120+88+67+131
+
+
+//#define OUTPUT_DRUG_COUNTS
+//#define OUTPUT_REAL_COUNT
+//#define OUTPUT_CA_COUNT
+
 using namespace std;
-string s[500];
-int county_count[10][500];
-int result[10][500];
-int State_count[10][5];
-int name_counter;
-string State_name[] = {"KY", "OH", "PA", "VA", "WV"  };
-struct {
-	int rel_name;
-	int adj[20];
+
+string s[500];  						// store the name of counties
+int county_count[10][500];	// store the number of drug reports of different counties in 2010-2017
+int result[10][500];		// store the results simulated by CA.
+int State_count[10][5];		// strore the number of drug reports of different state in 2010-2017
+int name_counter;			// store the number of counties
+const string State_name[] = {"KY", "OH", "PA", "VA", "WV"  };
+struct{ 
+	int rel_name;		// the number of adjacent counties
+	int adj[20];		
 } relations[500] ;
 
-const int KY_start=0;
-const int OH_start=120;
-const int PA_start=120+88;
-const int VA_start=120+88+67;
-const int WV_start=120+88+67+131;
-
+/* following are file operator  */
 ifstream names;
 ifstream count_year;
 ifstream county_relation;
-ofstream outfile;
+ofstream ca_count;
+ofstream real_count;
+
+/* following are functions declaration*/
+void get_name(void); 
+void get_count(void);
+void get_relation(void);
+void get_data(void);
+void CA(void);
+void output(void);
+
+
+int main() {
+	names.open("COUNTY_NAMES.txt");
+	count_year.open("DRUG_COUNTS.txt");
+	county_relation.open("NEW_COUNTY_RELATION.txt");
+	ca_count.open("CA_RESULTS.txt");
+	real_count.open("REAL_RESULTS.txt");
+
+
+
+	get_name();
+	get_count();
+	get_relation();
+//	CA();
+	output();
+
+
+	names.close();
+	count_year.close();
+	county_relation.close();
+	ca_count.close();
+	real_count.close();
+}
+
 
 void get_name(void) {
 	name_counter=0;
@@ -47,7 +89,6 @@ void get_count(void) {
 			case 'P' : herestart=PA_start; break;
 			case 'V' : herestart=VA_start; break;
 			case 'W' : herestart=WV_start; break;				default : cout<<"Error\n"<<endl; break;	
-		
 		}
 		for(int i=herestart; i<name_counter;i++ ) {
 			if(s[i]==Incounty) {
@@ -72,11 +113,7 @@ void get_count(void) {
 			State_count[i%2010][3]+=county_count[i%2010][j];
 		for(int j=WV_start;j<name_counter;j++) 
 			State_count[i%2010][4]+=county_count[i%2010][j];
-
-		
-	
 	}
-
 }
 
 void get_relation() {
@@ -94,25 +131,10 @@ void get_relation() {
 	}
 }
 
-void output() {
-	for(int i=2010;i<=2017;i++) {
-		for(int j=0;j<name_counter;j++) {
-			cout<< i<< "\t" ;
-			if(j<OH_start) 
-				cout<<"KY"<<"\t";
-			else if(j<PA_start)
-				cout<<"OH"<<"\t";
-			else if(j<VA_start)
-				cout<<"PA"<<"\t";
-			else if(j<WV_start)
-				cout<<"VA"<<"\t";
-			else
-				cout<<"WV"<<"\t";
-			cout<< s[j]<<"\t"<<county_count[i%2010][j]<<endl;
-		} 
-	}
-}
 
+void get_data() {
+
+}
 
 
 void CA() {
@@ -134,25 +156,55 @@ void CA() {
 
 
 
-int main() {
-	names.open("COUNTY_NAMES.txt");
-	count_year.open("DRUG_COUNTS.txt");
-	county_relation.open("NEW_COUNTY_RELATION.txt");
-	outfile.open("CA_RESULTS.txt");
+void output() {
+	
+#ifdef OUTPUT_DRUG_COUNTS
+	for(int i=2010;i<=2017;i++) {
+		cout<<i<<"\t"<<"KY\t"<<State_count[i%2010][0]<<endl;
+		cout<<i<<"\t"<<"OH\t"<<State_count[i%2010][1]<<endl;
+		cout<<i<<"\t"<<"PA\t"<<State_count[i%2010][2]<<endl;
+		cout<<i<<"\t"<<"VA\t"<<State_count[i%2010][3]<<endl;
+		cout<<i<<"\t"<<"WV\t"<<State_count[i%2010][4]<<endl;
+
+	}
+	for(int i=2010;i<=2017;i++) {
+		for(int j=0;j<name_counter;j++) {
+			cout<< i<< "\t" ;
+			if(j<OH_start) 
+				cout<<"KY"<<"\t";
+			else if(j<PA_start)
+				cout<<"OH"<<"\t";
+			else if(j<VA_start)
+				cout<<"PA"<<"\t";
+			else if(j<WV_start)
+				cout<<"VA"<<"\t";
+			else
+				cout<<"WV"<<"\t";
+			cout<< s[j]<<"\t"<<county_count[i%2010][j]<<endl;
+		} 
+	}
+#endif 
+
+#ifdef OUTPUT_REAL_COUNT
+
+	
+
+#endif
+
+#ifdef OUTPUT_CA_COUNT
 
 
-	get_name();
-	get_count();
-	get_relation();
-//	CA();
-	output();
+#endif
 
-
-	names.close();
-	count_year.close();
-	county_relation.close();
-	outfile.close();
 }
+
+
+
+
+
+
+
+
 
 
 
