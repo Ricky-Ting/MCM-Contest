@@ -1,0 +1,16 @@
+为了考虑相邻县之间的联系，我们引入元胞自动机模型。但我们对基本的元胞自动机模型做了很多改进来适应我们的问题。
+
+	To consider the relationship between adjacent 
+counties, CA model is introduced. Due to the specificity of this problem, we will modify the traditional CA model to satisfy the limitations of this problem. 
+
+	In our revised CA model, a cell represents some county in the five states and the state of a cell denotes the number of predicted drug reports of some county. Any two cells are adjecent in CA model if and only if the two counties they respectively represent are geographically adjecnt. Traditional CA model has to restrict the number of neighbours to be 4 or 8. However, we shed the constraint (or break the limit). In our model, the number of neighbours can be variable. 
+
+	Variable:
+
+
+
+	Rules:
+		Any cell's state in the $(i+1)_{th}$ stage is determined by its state and its neighbours' state in the $i_{th}$ stage. In other words, $s_{(i+1)j}$ is determined by $s_{ij}$ and $s_{ik}$ where $c_k$ is the neighour of $c_j$.
+		With careful consideration, We choose the relationship to be linear. The relation form is as follows.
+			$$ s_{(i+1)j} = k_1 s_{ij} + k_2 \lambda \frac{\sum _{k=1} ^{n_j} s_{i adj[j][k]} }{n_j} $$.
+			where $k_1$ denotes the influence of its own state, $k_2$ denotes the infulence of its neighbours' state, $\lambda$ is a constant which describes 

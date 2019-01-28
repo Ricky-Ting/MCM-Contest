@@ -1,0 +1,4 @@
+rm DATA.txt
+
+cat 2011_DATA.txt >> DATA.txt
+
