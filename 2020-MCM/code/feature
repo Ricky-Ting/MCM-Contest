@@ -1,0 +1,67 @@
+
+hair_dryer:
+        contains(refund) = True              neg : pos    =     63.2 : 1.0
+        contains(sparks) = True              neg : pos    =     62.6 : 1.0
+     contains(dangerous) = True              neg : pos    =     59.8 : 1.0
+          contains(hose) = True              neg : pos    =     35.9 : 1.0
+       contains(sparked) = True              neg : pos    =     32.5 : 1.0
+          contains(fire) = True              neg : pos    =     30.3 : 1.0
+         contains(sucks) = True              neg : pos    =     29.1 : 1.0
+         contains(waste) = True              neg : pos    =     26.8 : 1.0
+      contains(register) = True              neg : pos    =     25.6 : 1.0
+     contains(contacted) = True              neg : pos    =     25.6 : 1.0
+       contains(warning) = True              neg : pos    =     25.6 : 1.0
+          contains(junk) = True              neg : pos    =     24.2 : 1.0
+        contains(return) = True              neg : pos    =     23.2 : 1.0
+       contains(clearly) = True              neg : pos    =     22.2 : 1.0
+        contains(smells) = True              neg : pos    =     22.2 : 1.0
+          contains(Mine) = True              neg : pos    =     22.2 : 1.0
+        contains(melted) = True              neg : pos    =     22.2 : 1.0
+     contains(receiving) = True              neg : pos    =     22.2 : 1.0
+          contains(poor) = True              neg : pos    =     21.5 : 1.0
+         contains(worst) = True              neg : pos    =     19.8 : 1.0
+
+
+pacifier:
+         contains(trash) = True              neg : pos    =     40.3 : 1.0
+          contains(star) = True              neg : pos    =     40.3 : 1.0
+        contains(return) = True              neg : pos    =     33.0 : 1.0
+      contains(medicine) = True              neg : pos    =     32.6 : 1.0
+            contains(Be) = True              neg : pos    =     31.4 : 1.0
+        contains(rating) = True              neg : pos    =     31.4 : 1.0
+        contains(choked) = True              neg : pos    =     31.4 : 1.0
+      contains(returned) = True              neg : pos    =     31.4 : 1.0
+       contains(Instead) = True              neg : pos    =     31.4 : 1.0
+          contains(paid) = True              neg : pos    =     29.6 : 1.0
+       contains(sending) = True              neg : pos    =     24.2 : 1.0
+        contains(creepy) = True              neg : pos    =     22.4 : 1.0
+         contains(seams) = True              neg : pos    =     22.4 : 1.0
+           contains(nor) = True              neg : pos    =     22.4 : 1.0
+        contains(public) = True              neg : pos    =     22.4 : 1.0
+        contains(showed) = True              neg : pos    =     22.4 : 1.0
+ contains(manufacturers) = True              neg : pos    =     22.4 : 1.0
+         contains(press) = True              neg : pos    =     22.4 : 1.0
+            contains(AT) = True              neg : pos    =     22.4 : 1.0
+      contains(complete) = True              neg : pos    =     22.4 : 1.0
+
+microwave:
+        contains(repair) = True              neg : pos    =     31.0 : 1.0
+      contains(warranty) = True              neg : pos    =     21.1 : 1.0
+       contains(perfect) = True              pos : neg    =     18.8 : 1.0
+          contains(told) = True              neg : pos    =     17.8 : 1.0
+          contains(love) = True              pos : neg    =     14.3 : 1.0
+           contains(NOT) = True              neg : pos    =     14.3 : 1.0
+         contains(plate) = True              pos : neg    =     13.7 : 1.0
+          contains(easy) = True              pos : neg    =     11.9 : 1.0
+      contains(powerful) = True              pos : neg    =     11.2 : 1.0
+          contains(call) = True              neg : pos    =     10.8 : 1.0
+     contains(magnetron) = True              neg : pos    =     10.1 : 1.0
+         contains(later) = True              neg : pos    =      9.4 : 1.0
+        contains(keypad) = True              neg : pos    =      9.4 : 1.0
+       contains(counter) = True              pos : neg    =      8.9 : 1.0
+       contains(pleased) = True              pos : neg    =      8.6 : 1.0
+        contains(buying) = True              neg : pos    =      8.6 : 1.0
+          contains(best) = True              pos : neg    =      8.2 : 1.0
+           contains(fix) = True              neg : pos    =      8.2 : 1.0
+         contains(parts) = True              neg : pos    =      8.2 : 1.0
+          contains(send) = True              neg : pos    =      8.0 : 1.0
